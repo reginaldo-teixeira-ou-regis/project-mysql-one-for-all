@@ -1,5 +1,4 @@
-SELECT 
-    usr.name_user AS "pessoa_usuaria", 
+SELECT usr.name_user AS "pessoa_usuaria", 
     COUNT(hst.id_music ) AS "musicas_ouvidas", 
     ROUND(SUM(mus.duration_music)/60, 2) AS "total_minutos"
   FROM users usr
