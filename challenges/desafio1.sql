@@ -4,66 +4,66 @@ CREATE DATABASE IF NOT EXISTS SpotifyClone;
 
 USE SpotifyClone;
 
-CREATE TABLE planos(
-    id_plano INT PRIMARY KEY AUTO_INCREMENT,
-    nome_plano VARCHAR(75) NOT NULL,
-    valor_plano DECIMAL(6,2) NOT NULL
+CREATE TABLE plans(
+    id_plan INT PRIMARY KEY AUTO_INCREMENT,
+    name_plan VARCHAR(75) NOT NULL,
+    price_plan DECIMAL(6,2) NOT NULL
   );
 
-CREATE TABLE usuario(
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nome_usuario VARCHAR(75) NOT NULL,
-    idade_usuario INT NOT NULL,
-    id_plano INT NOT NULL,
-    data_assinatura_usuario DATE NOT NULL,
-    FOREIGN KEY (id_plano) REFERENCES planos(id_plano)
+CREATE TABLE users(
+    id_user INT PRIMARY KEY AUTO_INCREMENT,
+    name_user VARCHAR(75) NOT NULL,
+    age_user INT NOT NULL,
+    id_plan INT NOT NULL,
+    signature_date_user DATE NOT NULL,
+    FOREIGN KEY (id_plan) REFERENCES plans(id_plan)
   );
 
-CREATE TABLE artistas(
-    id_artista INT PRIMARY KEY AUTO_INCREMENT,
-    nome_artista VARCHAR(75) NOT NULL
+CREATE TABLE artists(
+    id_artist INT PRIMARY KEY AUTO_INCREMENT,
+    name_artist VARCHAR(75) NOT NULL
   );
 
-CREATE TABLE albuns(
+CREATE TABLE albums(
     id_album INT PRIMARY KEY AUTO_INCREMENT,
-    nome_album VARCHAR(75) NOT NULL,
-    id_artista INT NOT NULL,
-    ano_lancamento_album YEAR NOT NULL,
-    FOREIGN KEY (id_artista) REFERENCES artistas(id_artista)
+    name_album VARCHAR(75) NOT NULL,
+    id_artist INT NOT NULL,
+    release_year_album YEAR NOT NULL,
+    FOREIGN KEY (id_artist) REFERENCES artists(id_artist)
   );
 
-CREATE TABLE musicas(
-    id_musica INT PRIMARY KEY AUTO_INCREMENT,
-    nome_musica VARCHAR(100) NOT NULL,
+CREATE TABLE musics(
+    id_music INT PRIMARY KEY AUTO_INCREMENT,
+    name_music VARCHAR(100) NOT NULL,
     id_album INT NOT NULL,
-    duracao_musica INT NOT NULL,
-    FOREIGN KEY (id_album) REFERENCES albuns(id_album)
+    duration_music INT NOT NULL,
+    FOREIGN KEY (id_album) REFERENCES albums(id_album)
   );
 
-CREATE TABLE seguindo_artistas(
-    id_usuario INT NOT NULL,
-    id_artista INT NOT NULL,
-    PRIMARY KEY (id_usuario, id_artista),
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_artista) REFERENCES artistas(id_artista)
+CREATE TABLE following_artists(
+    id_user INT NOT NULL,
+    id_artist INT NOT NULL,
+    PRIMARY KEY (id_user, id_artist),
+    FOREIGN KEY (id_user) REFERENCES users(id_user),
+    FOREIGN KEY (id_artist) REFERENCES artists(id_artist)
   );
 
-CREATE TABLE historico(
-    id_usuario INT NOT NULL,
-    id_musica INT NOT NULL,
-    data_reproducao_historico DATETIME NOT NULL,
-    PRIMARY KEY (id_usuario, id_musica),
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_musica) REFERENCES musicas(id_musica)
+CREATE TABLE historic(
+    id_user INT NOT NULL,
+    id_music INT NOT NULL,
+    reproduction_date_historic DATETIME NOT NULL,
+    PRIMARY KEY (id_user, id_music),
+    FOREIGN KEY (id_user) REFERENCES users(id_user),
+    FOREIGN KEY (id_music) REFERENCES musics(id_music)
   );
 
-INSERT INTO planos (nome_plano, valor_plano) VALUES
+INSERT INTO plans (name_plan, price_plan) VALUES
   ('gratuito', 0.00),
   ('universitário', 5.99),
   ('pessoal', 6.99),
   ('familiar', 7.99);
 
-INSERT INTO usuario (nome_usuario, idade_usuario, id_plano, data_assinatura_usuario) VALUES
+INSERT INTO users (name_user, age_user, id_plan, signature_date_user) VALUES
   ('Barbara Liskov', 82, 1, '2019-10-20'),
   ('Robert Cecil Martin', 58, 1, '2017-01-06'),
   ('Ada Lovelace', 37, 4, '2017-12-30'),
@@ -75,7 +75,7 @@ INSERT INTO usuario (nome_usuario, idade_usuario, id_plano, data_assinatura_usua
   ('Judith Butler', 45, 3, '2020-05-13'),
   ('Jorge Amado', 58, 3, '2017-02-17');
 
-INSERT INTO artistas (nome_artista) VALUES
+INSERT INTO artists (name_artist) VALUES
   ('Beyoncé'),
   ('Queen'),
   ('Elis Regina'),
@@ -84,7 +84,7 @@ INSERT INTO artistas (nome_artista) VALUES
   ('Nina Simone');
 
     
-INSERT INTO albuns (nome_album, id_artista, ano_lancamento_album) VALUES
+INSERT INTO albums (name_album, id_artist, release_year_album) VALUES
   ('Renaissance', 1, 2022),
   ('Jazz', 2, 1978),
   ('Hot Space', 2, 1982),
@@ -94,7 +94,7 @@ INSERT INTO albuns (nome_album, id_artista, ano_lancamento_album) VALUES
   ('Somewhere Far Beyond', 5, 2007),
   ('I Put A Spell On You', 6, 2012);
 
-INSERT INTO musicas (nome_musica, id_album, duracao_musica) VALUES
+INSERT INTO musics (name_music, id_album, duration_music) VALUES
   ('BREAK MY SOUL', 1, 279),
   ('VIRGOS GROOVE', 1, 369),
   ('ALIEN SUPERSTAR', 1, 116),
@@ -106,7 +106,7 @@ INSERT INTO musicas (nome_musica, id_album, duracao_musica) VALUES
   ('The Bards Song', 7, 244),
   ('Feeling Good', 8, 100);
 
-INSERT INTO seguindo_artistas (id_usuario, id_artista) VALUES
+INSERT INTO following_artists (id_user, id_artist) VALUES
   (1, 1),
   (1, 2),
   (1, 3),
@@ -122,7 +122,7 @@ INSERT INTO seguindo_artistas (id_usuario, id_artista) VALUES
   (9, 3),
   (10, 2);
 
-INSERT INTO historico (id_usuario, id_musica, data_reproducao_historico) VALUES 
+INSERT INTO historic (id_user, id_music, reproduction_date_historic) VALUES 
   (1, 8, '2022-02-28 10:45:55'),
   (1, 2, '2020-05-02 05:30:35'),
   (1, 10, '2020-03-06 11:22:33'),
