@@ -1,13 +1,23 @@
--- Descomente e altere as linhas abaixo:
+CREATE TABLE SpotifyClone.favorite_musics(
+    id_favorite INT NOT NULL AUTO_INCREMENT,
+    id_user INT NOT NULL,
+    id_music INT NOT NULL,
+    PRIMARY KEY (id_favorite, id_user, id_music),
+    FOREIGN KEY (id_user) REFERENCES SpotifyClone.users(id_user),
+    FOREIGN KEY (id_music) REFERENCES SpotifyClone.musics(id_music)
+);
 
--- CREATE TABLE SpotifyClone.tabela(
---     coluna1 tipo restricoes,
---     coluna2 tipo restricoes,
---     colunaN tipo restricoes,
--- ) engine = InnoDB;
-
--- INSERT INTO SpotifyClone.tabela (coluna1, coluna2)
--- VALUES
---   ('exemplo de dados 1', 'exemplo de dados A'),
---   ('exemplo de dados 2', 'exemplo de dados B'),
---   ('exemplo de dados 3', 'exemplo de dados C');
+INSERT INTO SpotifyClone.favorite_musics(id_music, id_user) VALUES
+  (10, 1), 
+  (6, 1), 
+  (3, 1),
+  (4, 2),
+  (1, 3), 
+  (3, 3),
+  (7, 4), 
+  (4, 4), 
+  (10, 5),
+  (2, 5), 
+  (4, 8), 
+  (7, 9), 
+  (3, 10);
